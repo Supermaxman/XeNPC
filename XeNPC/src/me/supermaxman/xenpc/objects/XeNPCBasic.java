@@ -24,14 +24,4 @@ public class XeNPCBasic extends XeNPCBase {
         } catch (IOException ex) {
         }
     }
-
-    /**
-     * Attacks entity
-     *
-     * @param entity
-     */
-    public void attackEntity(Entity entity){
-        attack(entity);
-    }
-
 }
