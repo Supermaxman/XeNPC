@@ -1,6 +1,7 @@
 package me.supermaxman.xenpc.executors;
 
 import me.supermaxman.xenpc.main.XeNPC;
+import me.supermaxman.xenpc.objects.Manager;
 import me.supermaxman.xenpc.objects.XeNPCBasic;
 import net.minecraft.server.ItemInWorldManager;
 import net.minecraft.server.WorldServer;
@@ -18,7 +19,7 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
         if (args.length > 0) {
             String name = args[0];
             final Location loc = player.getLocation();
-            synchronized(XeNPC.npcs){
+            synchronized(Manager.npcs){
             	/*
             for(XeNPCBasic npcBasic : XeNPC.npcs){
             	if(npcBasic.name.equalsIgnoreCase(name)){
@@ -51,7 +52,7 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
 
             ws.addEntity(npcBasic);
             ws.players.remove(npcBasic);
-            XeNPC.npcs.add(npcBasic);
+            Manager.npcs.put(Manager.npcs.size() + 1,npcBasic);
             }
         } else if (args.length == 0) {
         	

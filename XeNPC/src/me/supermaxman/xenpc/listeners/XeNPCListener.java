@@ -2,18 +2,16 @@ package me.supermaxman.xenpc.listeners;
 
 import me.supermaxman.xenpc.main.XeNPC;
 import me.supermaxman.xenpc.objects.XeNPCBasic;
-
+import net.minecraft.server.ItemInWorldManager;
+import net.minecraft.server.WorldServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import net.minecraft.server.ItemInWorldManager;
-import net.minecraft.server.WorldServer;
-import org.bukkit.craftbukkit.CraftWorld;
-
-import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.scheduler.BukkitScheduler;
 
 public class XeNPCListener implements Listener {
@@ -60,9 +58,5 @@ public class XeNPCListener implements Listener {
             event.setCancelled(true);
 
         }
-
-
     }
-
-
 }

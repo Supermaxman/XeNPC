@@ -19,7 +19,6 @@ public class XeNPC extends JavaPlugin {
     public static FileConfiguration conf;
 
     private final XeNPCListener Listener = new XeNPCListener(this);
-    public static final List<XeNPCBasic> npcs = new ArrayList<XeNPCBasic>();
     public static XeNPC plugin;
 
     @Override
