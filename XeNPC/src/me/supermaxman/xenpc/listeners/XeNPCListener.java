@@ -14,6 +14,7 @@ import net.minecraft.server.WorldServer;
 import org.bukkit.craftbukkit.CraftWorld;
 
 import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public class XeNPCListener implements Listener {
     final XeNPC plugin;
@@ -21,7 +22,7 @@ public class XeNPCListener implements Listener {
     public XeNPCListener(XeNPC plugin) {
         this.plugin = plugin;
     }
-
+    BukkitScheduler scheduler = Bukkit.getScheduler();
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (event.getEntity() instanceof Villager) {
@@ -45,7 +46,7 @@ public class XeNPCListener implements Listener {
 
             npcBasic.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+            scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
                 @Override
                 public void run() {
                     npcBasic.X = loc.getYaw();
