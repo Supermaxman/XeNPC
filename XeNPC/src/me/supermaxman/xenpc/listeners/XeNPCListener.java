@@ -32,10 +32,19 @@ public class XeNPCListener implements Listener {
                             "NPC",
                             new ItemInWorldManager(((CraftWorld) event.getEntity().getWorld()).getHandle())
                     );
-            z.setLocation(event.getEntity().getLocation().getX(), event.getEntity().getLocation().getY(), event.getEntity().getLocation().getZ(), 50, 50);
+
+            z.setLocation(
+                    event.getEntity().getLocation().getX(),
+                    event.getEntity().getLocation().getY(),
+                    event.getEntity().getLocation().getZ(), 50, 50
+            );
+
             WorldServer ws = ((CraftWorld) event.getEntity().getWorld()).getHandle();
+
             final Location loc = event.getEntity().getLocation();
+
             z.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+
             Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                 @Override
                 public void run() {
