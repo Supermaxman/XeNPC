@@ -9,13 +9,13 @@ import java.net.Socket;
 
 public class XeNPCSocket extends Socket {
 
-	@Override
-	public InputStream getInputStream() {
-		return new ByteArrayInputStream(new byte[10]);
-	}
-	
-	@Override
-	public OutputStream getOutputStream() {
-		return new ByteArrayOutputStream();
-	}
+    @Override
+    public InputStream getInputStream() {
+        return new ByteArrayInputStream(new byte[10]);
+    }
+
+    @Override
+    public OutputStream getOutputStream() {
+        return new ByteArrayOutputStream();
+    }
 }
