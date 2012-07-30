@@ -15,18 +15,24 @@ import org.bukkit.craftbukkit.CraftWorld;
 
 import org.bukkit.craftbukkit.CraftServer;
 
-public class XeNPCListener implements Listener{
-	final XeNPC plugin;
+public class XeNPCListener implements Listener {
+    final XeNPC plugin;
 
     public XeNPCListener(XeNPC plugin) {
         this.plugin = plugin;
     }
-    
+
     @EventHandler
-    public void onCreatureSpawn(CreatureSpawnEvent event){
-    	if(event.getEntity() instanceof Villager){
-        	final XeNPCBasic z = new XeNPCBasic(((CraftServer) plugin.getServer()).getServer(), ((CraftWorld) event.getEntity().getWorld()).getHandle() ,"Xandvia", new ItemInWorldManager(((CraftWorld) event.getEntity().getWorld()).getHandle()));
-        	z.setLocation(event.getEntity().getLocation().getX(), event.getEntity().getLocation().getY(), event.getEntity().getLocation().getZ(), 50, 50);
+    public void onCreatureSpawn(CreatureSpawnEvent event) {
+        if (event.getEntity() instanceof Villager) {
+            final XeNPCBasic z =
+                    new XeNPCBasic(
+                            ((CraftServer) plugin.getServer()).getServer(),
+                            ((CraftWorld) event.getEntity().getWorld()).getHandle(),
+                            "NPC",
+                            new ItemInWorldManager(((CraftWorld) event.getEntity().getWorld()).getHandle())
+                    );
+            z.setLocation(event.getEntity().getLocation().getX(), event.getEntity().getLocation().getY(), event.getEntity().getLocation().getZ(), 50, 50);
             WorldServer ws = ((CraftWorld) event.getEntity().getWorld()).getHandle();
             final Location loc = event.getEntity().getLocation();
             z.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
@@ -36,21 +42,17 @@ public class XeNPCListener implements Listener{
                     z.X = loc.getYaw();
                 }
             });
-            
+
             ws.addEntity(z);
             ws.players.remove(z);
             //z.setSneak(true);
-            
-        	event.setCancelled(true);        	
-        	
-    	}
-    	
-    	
+
+            event.setCancelled(true);
+
+        }
+
+
     }
-    
-    
-    
-    
-    
+
 
 }

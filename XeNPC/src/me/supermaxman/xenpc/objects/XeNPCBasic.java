@@ -1,13 +1,8 @@
 package me.supermaxman.xenpc.objects;
 
-import net.minecraft.server.NetworkManager;
+import net.minecraft.server.*;
 
 import java.io.IOException;
-
-import net.minecraft.server.ItemInWorldManager;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.NetHandler;
-import net.minecraft.server.World;
 
 public class XeNPCBasic extends XeNPCBase {
     public XeNPCBasic(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager) {
@@ -29,5 +24,5 @@ public class XeNPCBasic extends XeNPCBase {
         } catch (IOException ex) {
         }
     }
-    
+
 }
