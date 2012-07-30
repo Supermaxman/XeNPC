@@ -25,7 +25,7 @@ public class XeNPCListener implements Listener {
     @EventHandler
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (event.getEntity() instanceof Villager) {
-            final XeNPCBasic z =
+            final XeNPCBasic xeNPCBasic =
                     new XeNPCBasic(
                             ((CraftServer) plugin.getServer()).getServer(),
                             ((CraftWorld) event.getEntity().getWorld()).getHandle(),
@@ -33,7 +33,7 @@ public class XeNPCListener implements Listener {
                             new ItemInWorldManager(((CraftWorld) event.getEntity().getWorld()).getHandle())
                     );
 
-            z.setLocation(
+            xeNPCBasic.setLocation(
                     event.getEntity().getLocation().getX(),
                     event.getEntity().getLocation().getY(),
                     event.getEntity().getLocation().getZ(), 50, 50
@@ -43,17 +43,17 @@ public class XeNPCListener implements Listener {
 
             final Location loc = event.getEntity().getLocation();
 
-            z.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+            xeNPCBasic.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
 
             Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                 @Override
                 public void run() {
-                    z.X = loc.getYaw();
+                    xeNPCBasic.X = loc.getYaw();
                 }
             });
 
-            ws.addEntity(z);
-            ws.players.remove(z);
+            ws.addEntity(xeNPCBasic);
+            ws.players.remove(xeNPCBasic);
             //z.setSneak(true);
 
             event.setCancelled(true);
