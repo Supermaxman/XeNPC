@@ -14,10 +14,11 @@ import org.bukkit.entity.Player;
 
 public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
     @Override
-    protected void run(Player player, String[] args) {
+    protected synchronized void run(Player player, String[] args) {
         if (args.length > 0) {
             String name = args[0];
             final Location loc = player.getLocation();
+            
             for(XeNPCBasic npcBasic : XeNPC.npcs){
             	if(npcBasic.name.equalsIgnoreCase(name)){
                     WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();

@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class XeNPC extends JavaPlugin {
@@ -18,7 +19,7 @@ public class XeNPC extends JavaPlugin {
     public static FileConfiguration conf;
 
     private final XeNPCListener Listener = new XeNPCListener(this);
-    public static ArrayList<XeNPCBasic> npcs = new ArrayList<XeNPCBasic>();
+    public static List<XeNPCBasic> npcs = new ArrayList<XeNPCBasic>();
     public static XeNPC plugin;
 
     @Override

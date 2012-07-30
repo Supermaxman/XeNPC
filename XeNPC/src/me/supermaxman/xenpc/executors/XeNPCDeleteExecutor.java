@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class XeNPCDeleteExecutor extends XeNPCBaseExecutor {
     @Override
-    protected void run(Player player, String[] args) {
+    protected synchronized void run(Player player, String[] args) {
         if (args.length > 0) {
             String name = args[0];
             for(XeNPCBasic npcBasic : XeNPC.npcs){
