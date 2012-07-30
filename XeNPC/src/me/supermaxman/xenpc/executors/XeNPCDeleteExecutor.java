@@ -10,9 +10,11 @@ import org.bukkit.entity.Player;
 
 public class XeNPCDeleteExecutor extends XeNPCBaseExecutor {
     @Override
-    protected synchronized void run(Player player, String[] args) {
+    protected void run(Player player, String[] args) {
         if (args.length > 0) {
-            String name = args[0];
+            synchronized(XeNPC.npcs){
+
+                String name = args[0];
             for(XeNPCBasic npcBasic : XeNPC.npcs){
             	if(npcBasic.name.equalsIgnoreCase(name)){
                     WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
@@ -20,6 +22,7 @@ public class XeNPCDeleteExecutor extends XeNPCBaseExecutor {
                     XeNPC.npcs.remove(npcBasic);
                     player.sendMessage(ChatColor.RED + "[XeNPC]: NPC "+name+" has been removed.");
             	}
+            }
             }
             
         } else if (args.length == 0) {

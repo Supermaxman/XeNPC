@@ -14,11 +14,11 @@ import org.bukkit.entity.Player;
 
 public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
     @Override
-    protected synchronized void run(Player player, String[] args) {
+    protected void run(Player player, String[] args) {
         if (args.length > 0) {
             String name = args[0];
             final Location loc = player.getLocation();
-            
+            synchronized(XeNPC.npcs){
             for(XeNPCBasic npcBasic : XeNPC.npcs){
             	if(npcBasic.name.equalsIgnoreCase(name)){
                     WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
@@ -26,6 +26,7 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
                     XeNPC.npcs.remove(npcBasic);
             	}
             }
+
             final XeNPCBasic npcBasic =
                     new XeNPCBasic(
                             ((CraftServer) plugin.getServer()).getServer(),
@@ -36,8 +37,8 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
 
             
             WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
-            
-            
+
+
             npcBasic.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
             
             Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -50,7 +51,7 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
             ws.addEntity(npcBasic);
             ws.players.remove(npcBasic);
             XeNPC.npcs.add(npcBasic);
-            
+            }
         } else if (args.length == 0) {
         	
             player.sendMessage(ChatColor.RED + "[XeNPC]: SYNTAX ERROR, type /cnpc [NPCName].");
