@@ -24,5 +24,4 @@ public class XeNPCBasic extends XeNPCBase {
         } catch (IOException ex) {
         }
     }
-
 }
