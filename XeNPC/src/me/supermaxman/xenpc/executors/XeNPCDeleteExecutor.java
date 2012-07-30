@@ -18,6 +18,7 @@ public class XeNPCDeleteExecutor extends XeNPCBaseExecutor {
                     WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
                     ws.removeEntity(npcBasic);
                     XeNPC.npcs.remove(npcBasic);
+                    player.sendMessage(ChatColor.RED + "[XeNPC]: NPC "+name+" has been removed.");
             	}
             }
             
