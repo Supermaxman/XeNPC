@@ -25,4 +25,13 @@ public class XeNPCBasic extends XeNPCBase {
         }
     }
 
+    /**
+     * Attacks entity
+     *
+     * @param entity
+     */
+    public void attackEntity(Entity entity){
+        attack(entity);
+    }
+
 }
