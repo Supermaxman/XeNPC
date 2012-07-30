@@ -8,16 +8,20 @@ import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class XeNPCDeleteExecutor extends XeNPCBaseExecutor {
     @Override
     protected void run(Player player, String[] args) {
         if (args.length > 0) {
+            WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
+            String name = args[0];
             synchronized(XeNPC.npcs){
-
-                String name = args[0];
-            for(XeNPCBasic npcBasic : XeNPC.npcs){
+            List<XeNPCBasic> npcs = new ArrayList<XeNPCBasic>();
+             npcs.addAll(XeNPC.npcs);
+            for(XeNPCBasic npcBasic : npcs){
             	if(npcBasic.name.equalsIgnoreCase(name)){
-                    WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
                     ws.removeEntity(npcBasic);
                     XeNPC.npcs.remove(npcBasic);
                     player.sendMessage(ChatColor.RED + "[XeNPC]: NPC "+name+" has been removed.");
