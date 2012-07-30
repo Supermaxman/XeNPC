@@ -19,6 +19,7 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
             String name = args[0];
             final Location loc = player.getLocation();
             synchronized(XeNPC.npcs){
+            	/*
             for(XeNPCBasic npcBasic : XeNPC.npcs){
             	if(npcBasic.name.equalsIgnoreCase(name)){
                     WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
@@ -26,7 +27,7 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
                     XeNPC.npcs.remove(npcBasic);
             	}
             }
-
+            	 */
             final XeNPCBasic npcBasic =
                     new XeNPCBasic(
                             ((CraftServer) plugin.getServer()).getServer(),
