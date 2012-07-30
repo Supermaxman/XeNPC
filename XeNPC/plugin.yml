@@ -3,3 +3,16 @@ main: me.supermaxman.xenpc.main.XeNPC
 version: 1.0.0
 author: Supermaxman
 description: NPCS!!!
+commands:
+    cnpc:
+        description: Create Npc
+        usage: /<command>
+    createnpc:
+        description: Create Npc
+        usage: /<command>
+    dnpc:
+        description: Deletes Npc
+        usage: /<command>
+    deletenpc:
+        description: Deletes Npc
+        usage: /<command>
