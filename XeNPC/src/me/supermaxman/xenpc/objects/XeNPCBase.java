@@ -7,7 +7,7 @@ import java.io.IOException;
 public class XeNPCBase extends EntityPlayer {
     private XeNPCHuman human;
     private static final double JUMP_FACTOR = 0.07D;
-    private float pathingRange = 16;
+    private final float pathingRange = 16;
 
     public XeNPCBase(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager) {
         super(minecraftserver, world, s, iteminworldmanager);
