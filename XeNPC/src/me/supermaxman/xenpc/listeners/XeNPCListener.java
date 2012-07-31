@@ -31,11 +31,11 @@ public class XeNPCListener implements Listener {
             XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
             Player p = event.getPlayer();
             if (npc.getOwner().equalsIgnoreCase(p.getName())) {
-            	if(p.getItemInHand().getType()==Material.AIR){
-            		p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
-            	}else{
-            		
-            	}
+                if (p.getItemInHand().getType() == Material.AIR) {
+                    p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
+                } else {
+                    p.sendMessage("You do not own this NPC!");
+                }
             }
 
         }
