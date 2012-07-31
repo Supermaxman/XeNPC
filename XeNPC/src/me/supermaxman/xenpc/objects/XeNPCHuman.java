@@ -80,6 +80,7 @@ public class XeNPCHuman {
 		this.getPlayer().playEffect(EntityEffect.DEATH);
 		WorldServer ws = ((CraftWorld) this.getWorld()).getHandle();
 		this.dropInventory();
+		
         ws.removeEntity(this.entity);
 		Manager.npcs.remove(UID);
 	}
@@ -97,7 +98,6 @@ public class XeNPCHuman {
         	this.getInventory().remove(i);
         	}
     	}
-    	
     }   
 	
     public String getOwner() {
@@ -299,7 +299,8 @@ public class XeNPCHuman {
     private void damageItem(ItemStack i, int amt){
     	i.setDurability((short)(i.getDurability()+amt));
     }
-	private boolean loseItem(Material mat){
+	
+    private boolean loseItem(Material mat){
 		ItemStack[] items = this.getInventory().getContents();
 		if(this.getInventory().contains(mat)){
 			
