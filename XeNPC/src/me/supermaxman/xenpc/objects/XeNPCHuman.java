@@ -280,20 +280,31 @@ public class XeNPCHuman {
         }
     }
 
-
-    private void damageItem(ItemStack i, int amt) {
-        i.setDurability((short) (i.getDurability() + amt));
+    /**
+     * Adds damage points to the ItemStack
+     *
+     * @param itemStack
+     * @param amt
+     */
+    private void damageItem(ItemStack itemStack, int amt) {
+        itemStack.setDurability((short) (itemStack.getDurability() + amt));
     }
 
-    private boolean loseItem(Material mat) {
-        ItemStack[] items = this.getInventory().getContents();
-        if (this.getInventory().contains(mat)) {
+    /**
+     * Drops item if material is contained within the NPCs inventory.
+     * Returns true on drop.
+     *
+     * @param material
+     * @return
+     */
+    private boolean loseItem(Material material) {
+        if (this.getInventory().contains(material)) {
 
             for (ItemStack it : this.getInventory().getContents()) {
                 if (it == null) {
-                } else if ((it.getType() == mat) && (it.getAmount() > 1)) {
+                } else if ((it.getType() == material) && (it.getAmount() > 1)) {
                     it.setAmount(it.getAmount() - 1);
-                } else if ((it.getType() == mat) && (it.getAmount() == 1)) {
+                } else if ((it.getType() == material) && (it.getAmount() == 1)) {
                     this.getInventory().removeItem(it);
                 }
             }
