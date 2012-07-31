@@ -27,7 +27,11 @@ public class XeNPCListener implements Listener {
     	if(mcEntity instanceof XeNPCBase){
     		XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
     		Player p = event.getPlayer();
-    		p.openInventory(npc.getInventory());
+    		if(npc.getOwner().equalsIgnoreCase(p.getName())){
+        		p.openInventory(npc.getInventory());
+    		}
+    		p.sendMessage(""+npc.getUID());
+    		
     	}
     }
     
@@ -37,7 +41,9 @@ public class XeNPCListener implements Listener {
     	if(mcEntity instanceof XeNPCBase&&event.isCancelled()!=true){
     		event.setCancelled(true);
     		XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
-    		npc.damage(event.getDamage());
+    		if(npc.getPVP()){
+        		npc.damage(event.getDamage());
+    		}
     		
     	}
     }

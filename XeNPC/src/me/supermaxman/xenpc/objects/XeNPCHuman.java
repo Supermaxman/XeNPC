@@ -4,6 +4,9 @@ import me.supermaxman.xenpc.main.TickTask;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet18ArmAnimation;
+import net.minecraft.server.PathEntity;
+import net.minecraft.server.Vec3D;
+import net.minecraft.server.WorldServer;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Bukkit;
@@ -13,6 +16,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
@@ -33,21 +37,35 @@ public class XeNPCHuman {
 	private LivingEntity target;
 	private boolean isGrounded;
 	private boolean hasAttacked = false;
+	private boolean pvp = false;
 	private static final double JUMP_FACTOR = 0.07D;
 	private boolean isFalling = false;
 	private int attackDelay = 20;
-	public XeNPCHuman(XeNPCBase entity, int UID, String name) {
+    private PathEntity path;
+    private String owner;
+	public XeNPCHuman(XeNPCBase entity, int UID, String name, String owner) {
 		this.name = ChatColor.stripColor(name);
 	    this.UID = UID;
 	    this.entity = entity;
 	    this.entity.setNPC(this);
-	    
+	    this.owner = owner;
+	}
+	
+	
+	
+	
+	
+	public void setPVP(Boolean bool){
+		this.pvp = bool;
+	}
+	
+	public boolean getPVP(){
+		return this.pvp;
 	}
 	
 	public void setHealth(int health){
 		this.health = health;
 	}
-	
 	
 	public void damage(int d) {
 		this.health = this.health - d;
@@ -59,13 +77,32 @@ public class XeNPCHuman {
 	
 	public void die(){
 		this.getPlayer().playEffect(EntityEffect.DEATH);
-		this.entity.die();
+		WorldServer ws = ((CraftWorld) this.getWorld()).getHandle();
+		this.dropInventory();
+        ws.removeEntity(this.entity);
 		Manager.npcs.remove(UID);
 	}
+	
+	
+	
 	public XeNPCBase getHandle() {
 	    return this.entity;
 	}
-	    
+	
+    public void dropInventory(){
+    	for(ItemStack i: this.getInventory().getContents()){
+        	if(i!=null){
+        	this.getWorld().dropItem(this.getLocation(), i);
+        	this.getInventory().remove(i);
+        	}
+    	}
+    	
+    }   
+	
+    public String getOwner() {
+		return this.owner;
+	}
+    
 	public PlayerInventory getInventory() {
 		return this.getPlayer().getInventory();
 	}
@@ -129,7 +166,7 @@ public class XeNPCHuman {
 		return UID == other.UID;
 	}
 	
-	
+    
 	public void doTick(){
 		if(this.target!=null){
 			if(this.target.isDead()){
@@ -137,8 +174,11 @@ public class XeNPCHuman {
 			}
 		}
 		if(this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType()==Material.AIR&&isFalling==false){
-			this.entity.motY = -0.42D;
+			this.entity.motY = -1.00D;
+			
 			isFalling = true;
+			
+			System.out.println(1);
 		}
 		if(this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType()!=Material.AIR&&isFalling==true){
 			//this.entity.motY = 0;
