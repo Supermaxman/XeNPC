@@ -32,7 +32,7 @@ public class XeNPCListener implements Listener {
             Player p = event.getPlayer();
             if (npc.getOwner().equalsIgnoreCase(p.getName())) {
                 if (p.getItemInHand().getType() == Material.AIR) {
-                    p.openInventory(((CraftPlayer) event.getRightClicked()).getOpenInventory());
+                    p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
                 } else {
                 	if(npc.isFollowing()){
                     	npc.setFollowing(false);
