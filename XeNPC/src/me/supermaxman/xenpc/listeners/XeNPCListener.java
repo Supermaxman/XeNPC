@@ -19,32 +19,33 @@ public class XeNPCListener implements Listener {
     public XeNPCListener(XeNPC plugin) {
         this.plugin = plugin;
     }
+
     BukkitScheduler scheduler = Bukkit.getScheduler();
-    
+
     @EventHandler
-    public void onPlayerInteractEntity(PlayerInteractEntityEvent event){
-    	
-    	net.minecraft.server.Entity mcEntity = ((CraftEntity) event.getRightClicked()).getHandle();
-    	if(mcEntity instanceof XeNPCBase){
-    		XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
-    		Player p = event.getPlayer();
-    		if(npc.getOwner().equalsIgnoreCase(p.getName())){
-        		p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
-    		}
-    		
-    	}
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+
+        net.minecraft.server.Entity mcEntity = ((CraftEntity) event.getRightClicked()).getHandle();
+        if (mcEntity instanceof XeNPCBase) {
+            XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
+            Player p = event.getPlayer();
+            if (npc.getOwner().equalsIgnoreCase(p.getName())) {
+                p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
+            }
+
+        }
     }
-    
+
     @EventHandler
-    public void onEntityDamage(EntityDamageEvent event){
-    	net.minecraft.server.Entity mcEntity = ((CraftEntity) event.getEntity()).getHandle();
-    	if(mcEntity instanceof XeNPCBase&&event.isCancelled()!=true){
-    		event.setCancelled(true);
-    		XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
-    		if(npc.getPVP()){
-        		npc.damage(event.getDamage());
-    		}
-    		
-    	}
+    public void onEntityDamage(EntityDamageEvent event) {
+        net.minecraft.server.Entity mcEntity = ((CraftEntity) event.getEntity()).getHandle();
+        if (mcEntity instanceof XeNPCBase && event.isCancelled() != true) {
+            event.setCancelled(true);
+            XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
+            if (npc.getPVP()) {
+                npc.damage(event.getDamage());
+            }
+
+        }
     }
 }

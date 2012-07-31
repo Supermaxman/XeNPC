@@ -6,7 +6,6 @@ import me.supermaxman.xenpc.objects.XeNPCBase;
 import me.supermaxman.xenpc.objects.XeNPCHuman;
 import net.minecraft.server.ItemInWorldManager;
 import net.minecraft.server.WorldServer;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -20,38 +19,38 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
         if (args.length > 0) {
             String name = args[0];
             final Location loc = player.getLocation();
-            synchronized(Manager.npcs){
-            
-            final XeNPCBase npc =
-                    new XeNPCBase(
-                            ((CraftServer) plugin.getServer()).getServer(),
-                            ((CraftWorld) loc.getWorld()).getHandle(),
-                            name,
-                            new ItemInWorldManager(((CraftWorld) player.getWorld()).getHandle())
-                    );
+            synchronized (Manager.npcs) {
 
-            
-            WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
+                final XeNPCBase npc =
+                        new XeNPCBase(
+                                ((CraftServer) plugin.getServer()).getServer(),
+                                ((CraftWorld) loc.getWorld()).getHandle(),
+                                name,
+                                new ItemInWorldManager(((CraftWorld) player.getWorld()).getHandle())
+                        );
 
 
-            npc.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
-            
-            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
-                @Override
-                public void run() {
-                    npc.X = loc.getYaw();
-                }
-            });
-            XeNPCHuman npchuman = new XeNPCHuman(npc, Manager.npcs.size()+1, name, player.getName());
-            npchuman.setHealth(20);
-            ws.addEntity(npchuman.getHandle());
-            ws.players.remove(npchuman.getHandle());
-            Manager.npcs.put(npchuman.getUID(),npchuman);
+                WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
+
+
+                npc.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+
+                Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        npc.X = loc.getYaw();
+                    }
+                });
+                XeNPCHuman npchuman = new XeNPCHuman(npc, Manager.npcs.size() + 1, name, player.getName());
+                npchuman.setHealth(20);
+                ws.addEntity(npchuman.getHandle());
+                ws.players.remove(npchuman.getHandle());
+                Manager.npcs.put(npchuman.getUID(), npchuman);
             }
         } else if (args.length == 0) {
-        	
+
             player.sendMessage(ChatColor.RED + "[XeNPC]: SYNTAX ERROR, type /cnpc [NPCName].");
-            
+
         }
     }
 

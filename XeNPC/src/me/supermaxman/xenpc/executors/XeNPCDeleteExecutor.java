@@ -17,24 +17,24 @@ public class XeNPCDeleteExecutor extends XeNPCBaseExecutor {
         if (args.length > 0) {
             WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
             String name = args[0];
-            synchronized(Manager.npcs){
-            HashMap<Integer,XeNPCHuman> npcs = new HashMap<Integer, XeNPCHuman>();
-             npcs.putAll(Manager.npcs);
+            synchronized (Manager.npcs) {
+                HashMap<Integer, XeNPCHuman> npcs = new HashMap<Integer, XeNPCHuman>();
+                npcs.putAll(Manager.npcs);
                 for (Map.Entry<Integer, XeNPCHuman> xeNPCHumanEntry : npcs.entrySet()) {
-                	XeNPCHuman npc = xeNPCHumanEntry.getValue();
-                    if(npc.getName().equalsIgnoreCase(name)){
+                    XeNPCHuman npc = xeNPCHumanEntry.getValue();
+                    if (npc.getName().equalsIgnoreCase(name)) {
                         ws.removeEntity(npc.getHandle());
                         Manager.npcs.remove(npc);
-                        player.sendMessage(ChatColor.RED + "[XeNPC]: NPC "+name+" has been removed.");
+                        player.sendMessage(ChatColor.RED + "[XeNPC]: NPC " + name + " has been removed.");
                     }
                 }
 
             }
-            
+
         } else if (args.length == 0) {
-        	
+
             player.sendMessage(ChatColor.RED + "[XeNPC]: SYNTAX ERROR, type /dnpc [NPCName].");
-            
+
         }
     }
 

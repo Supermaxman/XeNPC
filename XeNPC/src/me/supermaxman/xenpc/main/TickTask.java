@@ -2,44 +2,42 @@ package me.supermaxman.xenpc.main;
 
 import me.supermaxman.xenpc.objects.Manager;
 import me.supermaxman.xenpc.objects.XeNPCHuman;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 public class TickTask implements Runnable {
-	
+
     @Override
     public void run() {
         Player[] online = Bukkit.getServer().getOnlinePlayers();
-        
+
         for (XeNPCHuman npc : Manager.npcs.values()) {
             npc.doTick();
-            if(npc.getTarget()==null){
-            for (Player player : online) {
-                if (withinRange(npc.getLocation(), player.getLocation(), 10)) {
+            if (npc.getTarget() == null) {
+                for (Player player : online) {
+                    if (withinRange(npc.getLocation(), player.getLocation(), 10)) {
                         faceEntity(npc, player);
                         break;
+                    }
                 }
             }
-            }
-    		
+
         }
 
     }
-    
-	public static boolean withinRange(Location loc, Location pLoc, double range) {
-		if (loc == null || pLoc == null || loc.getWorld() != pLoc.getWorld()) {
-			return false;
-		}
-		return Math.pow(range, 2) > loc.distanceSquared(pLoc);
-	}
-    
+
+    public static boolean withinRange(Location loc, Location pLoc, double range) {
+        if (loc == null || pLoc == null || loc.getWorld() != pLoc.getWorld()) {
+            return false;
+        }
+        return Math.pow(range, 2) > loc.distanceSquared(pLoc);
+    }
+
     public static void faceEntity(XeNPCHuman npc, Entity entity) {
-        if (npc.getWorld() != entity.getWorld())return;
-        
+        if (npc.getWorld() != entity.getWorld()) return;
+
         Location loc = npc.getLocation(), pl = entity.getLocation();
         double xDiff = pl.getX() - loc.getX();
         double yDiff = pl.getY() - loc.getY();
