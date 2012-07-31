@@ -4,6 +4,7 @@ import me.supermaxman.xenpc.main.XeNPC;
 import me.supermaxman.xenpc.objects.XeNPCBase;
 import me.supermaxman.xenpc.objects.XeNPCHuman;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -30,7 +31,11 @@ public class XeNPCListener implements Listener {
             XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
             Player p = event.getPlayer();
             if (npc.getOwner().equalsIgnoreCase(p.getName())) {
-                p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
+            	if(p.getItemInHand().getType()==Material.AIR){
+            		p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
+            	}else{
+            		
+            	}
             }
 
         }
