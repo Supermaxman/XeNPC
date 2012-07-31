@@ -11,6 +11,7 @@ import org.bukkit.EntityEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.BlockFace;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
@@ -32,6 +33,8 @@ public class XeNPCHuman {
 	private LivingEntity target;
 	private boolean isGrounded;
 	private boolean hasAttacked = false;
+	private static final double JUMP_FACTOR = 0.07D;
+	private boolean isFalling = false;
 	private int attackDelay = 20;
 	public XeNPCHuman(XeNPCBase entity, int UID, String name) {
 		this.name = ChatColor.stripColor(name);
@@ -132,6 +135,14 @@ public class XeNPCHuman {
 			if(this.target.isDead()){
 				this.target=null;
 			}
+		}
+		if(this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType()==Material.AIR&&isFalling==false){
+			this.entity.motY = -0.42D;
+			isFalling = true;
+		}
+		if(this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType()!=Material.AIR&&isFalling==true){
+			//this.entity.motY = 0;
+			isFalling = false;
 		}
 		if(this.getPlayer().getItemInHand().getType()==Material.BOW){
 			for(Entity e : this.getPlayer().getNearbyEntities(15, 10, 15)){
