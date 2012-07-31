@@ -5,6 +5,7 @@ import me.supermaxman.xenpc.objects.XeNPCBase;
 import me.supermaxman.xenpc.objects.XeNPCHuman;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,9 +29,8 @@ public class XeNPCListener implements Listener {
     		XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
     		Player p = event.getPlayer();
     		if(npc.getOwner().equalsIgnoreCase(p.getName())){
-        		p.openInventory(npc.getInventory());
+        		p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
     		}
-    		p.sendMessage(""+npc.getUID());
     		
     	}
     }
