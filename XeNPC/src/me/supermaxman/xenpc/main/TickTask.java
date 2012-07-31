@@ -53,6 +53,6 @@ public class TickTask implements Runnable {
         }
         npc.getHandle().yaw = (float) yaw - 90;
         npc.getHandle().X = npc.getHandle().yaw;
-        npc.getHandle().pitch = (float) pitch;q
+        npc.getHandle().pitch = (float) pitch;
     }
 }
