@@ -17,6 +17,7 @@ public class XeNPC extends JavaPlugin {
     //Required
     public static Logger log;
     public static FileConfiguration conf;
+    final static boolean debug = false;
 
     private final XeNPCListener Listener = new XeNPCListener(this);
     public static XeNPC plugin;
