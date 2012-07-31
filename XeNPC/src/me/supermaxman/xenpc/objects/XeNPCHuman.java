@@ -173,17 +173,16 @@ public class XeNPCHuman {
 				this.target=null;
 			}
 		}
-		if(this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType()==Material.AIR&&isFalling==false){
-			this.entity.motY = -1.00D;
-			
-			isFalling = true;
-			
-			System.out.println(1);
-		}
+		
 		if(this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType()!=Material.AIR&&isFalling==true){
-			//this.entity.motY = 0;
+			this.teleport(this.getLocation().getX(),this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getLocation().add(0, 1, 0).getY(),this.getLocation().getZ(), this.getLocation().getYaw(), this.getLocation().getPitch());
 			isFalling = false;
 		}
+		if(this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType()==Material.AIR){
+			this.teleport(this.getLocation().add(0, -0.5, 0));
+			isFalling = true;
+		}
+
 		if(this.getPlayer().getItemInHand().getType()==Material.BOW){
 			for(Entity e : this.getPlayer().getNearbyEntities(15, 10, 15)){
 				if(e instanceof Monster){
