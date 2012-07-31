@@ -280,6 +280,16 @@ public class XeNPCHuman {
     			y = y+1.1;
     		}
     		this.entity.move(x, y, z);
+    		if(p.isSprinting()){
+    			this.entity.setSprinting(true);
+    		}else{
+    			this.entity.setSprinting(false);
+    		}
+    		if(p.isSneaking()){
+    			this.entity.setSneak(true);
+    		}else{
+    			this.entity.setSneak(false);
+    		}
     	}
     	}
     }
