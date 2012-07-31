@@ -6,6 +6,7 @@ import me.supermaxman.xenpc.objects.XeNPCHuman;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 public class TickTask implements Runnable {
@@ -52,6 +53,6 @@ public class TickTask implements Runnable {
         }
         npc.getHandle().yaw = (float) yaw - 90;
         npc.getHandle().X = npc.getHandle().yaw;
-        npc.getHandle().pitch = (float) pitch;
+        npc.getHandle().pitch = (float) pitch;q
     }
 }

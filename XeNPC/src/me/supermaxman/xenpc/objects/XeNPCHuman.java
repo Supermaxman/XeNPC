@@ -1,6 +1,7 @@
 package me.supermaxman.xenpc.objects;
 
 import me.supermaxman.xenpc.main.TickTask;
+import me.supermaxman.xenpc.main.XeNPC;
 import net.minecraft.server.EntityPlayer;
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet18ArmAnimation;
@@ -20,6 +21,7 @@ import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -37,8 +39,7 @@ public class XeNPCHuman {
 	private LivingEntity target;
 	private boolean isGrounded;
 	private boolean hasAttacked = false;
-	private boolean pvp = false;
-	private static final double JUMP_FACTOR = 0.07D;
+	private boolean pvp = true;
 	private boolean isFalling = false;
 	private int attackDelay = 20;
     private PathEntity path;
@@ -173,7 +174,7 @@ public class XeNPCHuman {
 				this.target=null;
 			}
 		}
-		
+		followOwner();
 		if(this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType()!=Material.AIR&&isFalling==true){
 			this.teleport(this.getLocation().getX(),this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getLocation().add(0, 1, 0).getY(),this.getLocation().getZ(), this.getLocation().getYaw(), this.getLocation().getPitch());
 			isFalling = false;
@@ -182,7 +183,6 @@ public class XeNPCHuman {
 			this.teleport(this.getLocation().add(0, -0.5, 0));
 			isFalling = true;
 		}
-
 		if(this.getPlayer().getItemInHand().getType()==Material.BOW){
 			for(Entity e : this.getPlayer().getNearbyEntities(15, 10, 15)){
 				if(e instanceof Monster){
@@ -219,9 +219,19 @@ public class XeNPCHuman {
     private void attackEntity(net.minecraft.server.Entity entity) {
     	if(this.getItemInHand().getType()!=Material.AIR&&this.target!=null){
         if (this.getItemInHand().getType()==Material.BOW) {
+        	ItemStack i = this.getItemInHand();
             TickTask.faceEntity(this, target);
-            
-            this.getPlayer().launchProjectile(Arrow.class);
+            if(!i.containsEnchantment(Enchantment.ARROW_INFINITE)){
+            	if(loseItem(Material.ARROW)){
+            		damageItem(i, 1);
+            		this.entity.makeInaccuracies();;
+            		this.getPlayer().launchProjectile(Arrow.class);
+            	}
+            }else{
+        			damageItem(i, 1);
+        			this.entity.makeInaccuracies();;
+        			this.getPlayer().launchProjectile(Arrow.class);
+            }
         } else {        	
         	Location location = this.getLocation();
         	final World world = location.getWorld();
@@ -236,11 +246,64 @@ public class XeNPCHuman {
         		((CraftPlayer) ply).getHandle().netServerHandler.sendPacket((packet));
         	}
             LivingEntity other = target;
+        	ItemStack i = this.getItemInHand();
+			damageItem(i, 1);
             other.damage(this.entity.inventory.a(entity));
         }
         hasAttacked = true;
     	}
     }
-	
+    
+    private synchronized void followOwner(){
+    	Player p = XeNPC.plugin.getServer().getPlayerExact(this.owner);
+    	
+    	if(p!=null){
+            Location ploc = p.getLocation();
+            Location nloc = this.getLocation();
+            Vector pv = ploc.toVector();
+            Vector nv = nloc.toVector();
+            double x = this.entity.x;
+            double y = this.entity.y;
+            double z = this.entity.z;
+    		if(pv.getX()>nv.getX()){
+    			x = x+0.1;
+    		}else if(pv.getX()<nv.getX()){
+    			x = x-0.1;
+    		}
+    		if(pv.getZ()>nv.getZ()){
+    			z = z+0.1;
+    		}else if(pv.getZ()<nv.getZ()){
+    			z = z-0.1;
+    		}
+    		if(pv.getY()>nv.getY()){
+    			y = y+1.1;
+    		}
+    		this.entity.move(x, y, z);
+    		
+    	}
+    }
+    
+    
+    
+    private void damageItem(ItemStack i, int amt){
+    	i.setDurability((short)(i.getDurability()+amt));
+    }
+	private boolean loseItem(Material mat){
+		ItemStack[] items = this.getInventory().getContents();
+		if(this.getInventory().contains(mat)){
+			
+		for(ItemStack it : this.getInventory().getContents()){
+			if (it==null){
+			}else if ((it.getType()==mat)&&(it.getAmount()>1)){
+				it.setAmount(it.getAmount()-1);
+			}else if((it.getType()==mat)&&(it.getAmount()==1)){
+				this.getInventory().removeItem(it);
+			}
+		}
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 }
