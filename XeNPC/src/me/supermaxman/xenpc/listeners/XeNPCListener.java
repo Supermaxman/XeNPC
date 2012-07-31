@@ -31,11 +31,11 @@ public class XeNPCListener implements Listener {
             XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
             Player p = event.getPlayer();
             if (npc.getOwner().equalsIgnoreCase(p.getName())) {
-            	if(p.getItemInHand().getType()==Material.AIR){
-            		p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
-            	}else{
-            		
-            	}
+                if (p.getItemInHand().getType() == Material.AIR) {
+                    p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
+                } else {
+
+                }
             }
 
         }
@@ -47,7 +47,7 @@ public class XeNPCListener implements Listener {
         if (mcEntity instanceof XeNPCBase && event.isCancelled() != true) {
             event.setCancelled(true);
             XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
-            if (npc.getPVP()) {
+            if (npc.isPVP()) {
                 npc.damage(event.getDamage());
             }
 
