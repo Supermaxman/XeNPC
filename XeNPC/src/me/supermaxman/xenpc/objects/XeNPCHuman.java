@@ -2,9 +2,11 @@ package me.supermaxman.xenpc.objects;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.EntityEffect;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.CraftServer;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -13,15 +15,35 @@ public class XeNPCHuman {
 	private final String name;
 	private final int UID;
 	private final XeNPCBase entity;
+	private int health;
+	private LivingEntity target;
 	
 	public XeNPCHuman(XeNPCBase entity, int UID, String name) {
 		this.name = ChatColor.stripColor(name);
 	    this.UID = UID;
 	    this.entity = entity;
 	    this.entity.setNPC(this);
+	    
+	}
+	
+	public void setHealth(int health){
+		this.health = health;
 	}
 	
 	
+	public void damage(int d) {
+		this.health = this.health - d;
+		this.getPlayer().playEffect(EntityEffect.HURT);
+		if(this.health<=0){
+			this.die();
+		}
+	}
+	
+	public void die(){
+		this.getPlayer().playEffect(EntityEffect.DEATH);
+		this.entity.die();
+		Manager.npcs.remove(UID);
+	}
 	public XeNPCBase getHandle() {
 	    return this.entity;
 	}

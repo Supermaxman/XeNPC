@@ -3,7 +3,12 @@ package me.supermaxman.xenpc.main;
 import me.supermaxman.xenpc.executors.XeNPCCreateExecutor;
 import me.supermaxman.xenpc.executors.XeNPCDeleteExecutor;
 import me.supermaxman.xenpc.listeners.XeNPCListener;
+import me.supermaxman.xenpc.objects.Manager;
+import me.supermaxman.xenpc.objects.XeNPCHuman;
+import net.minecraft.server.WorldServer;
+
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -20,6 +25,10 @@ public class XeNPC extends JavaPlugin {
     @Override
     public void onDisable() {
         log.info("Disabled.");
+        for(XeNPCHuman npc : Manager.npcs.values()){
+            WorldServer ws = ((CraftWorld) npc.getWorld()).getHandle();
+        	ws.removeEntity(npc.getHandle());
+        }
     }
 
     @Override
@@ -34,7 +43,7 @@ public class XeNPC extends JavaPlugin {
         getCommand("createnpc").setExecutor(new XeNPCCreateExecutor(this));
         getCommand("deletenpc").setExecutor(new XeNPCDeleteExecutor(this));
         getCommand("dnpc").setExecutor(new XeNPCDeleteExecutor(this));
-
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new TickTask(), 0, 1);
     }
 
 

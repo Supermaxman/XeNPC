@@ -43,9 +43,10 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
                 }
             });
             XeNPCHuman npchuman = new XeNPCHuman(npc, Manager.npcs.size()+1, name);
+            npchuman.setHealth(20);
             ws.addEntity(npchuman.getHandle());
             ws.players.remove(npchuman.getHandle());
-            Manager.npcs.put(Manager.npcs.size() + 1,npchuman);
+            Manager.npcs.put(npchuman.getUID(),npchuman);
             }
         } else if (args.length == 0) {
         	
