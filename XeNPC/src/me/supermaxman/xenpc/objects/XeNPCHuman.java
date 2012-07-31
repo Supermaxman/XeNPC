@@ -256,8 +256,9 @@ public class XeNPCHuman {
     
     private synchronized void followOwner(){
     	Player p = XeNPC.plugin.getServer().getPlayerExact(this.owner);
-    	
     	if(p!=null){
+    	if(!this.getPlayer().getNearbyEntities(2, 2, 2).contains(p)){
+    		
             Location ploc = p.getLocation();
             Location nloc = this.getLocation();
             Vector pv = ploc.toVector();
@@ -279,7 +280,7 @@ public class XeNPCHuman {
     			y = y+1.1;
     		}
     		this.entity.move(x, y, z);
-    		
+    	}
     	}
     }
     
