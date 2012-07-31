@@ -28,6 +28,7 @@ public class XeNPCHuman {
     private boolean hasAttacked = false;
     private boolean pvp = true;
     private boolean isFalling = false;
+    private boolean isFollowing = false;
     private int attackDelay = 20;
     private PathEntity path;
     private String owner;
@@ -40,15 +41,21 @@ public class XeNPCHuman {
         this.owner = owner;
     }
 
-
+    public void setFollowing(Boolean bool) {
+        this.isFollowing = bool;
+    }
+    
+    public boolean isFollowing() {
+        return this.isFollowing;
+    }
     public void setPVP(Boolean bool) {
         this.pvp = bool;
     }
 
-    public boolean getPVP() {
+    public boolean isPVP() {
         return this.pvp;
     }
-
+    
     public void setHealth(int health) {
         this.health = health;
     }
@@ -158,7 +165,9 @@ public class XeNPCHuman {
                 this.target = null;
             }
         }
-        followOwner();
+        if(this.isFollowing){
+            followOwner();
+        }
         if (this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType() != Material.AIR && isFalling == true) {
             this.teleport(this.getLocation().getX(), this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getLocation().add(0, 1, 0).getY(), this.getLocation().getZ(), this.getLocation().getYaw(), this.getLocation().getPitch());
             isFalling = false;

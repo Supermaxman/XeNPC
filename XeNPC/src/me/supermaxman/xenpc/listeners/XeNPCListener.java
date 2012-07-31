@@ -34,7 +34,11 @@ public class XeNPCListener implements Listener {
             	if(p.getItemInHand().getType()==Material.AIR){
             		p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
             	}else{
-            		
+            		if(npc.isFollowing()){
+                		npc.setFollowing(false);
+            		}else{
+            			npc.setFollowing(true);
+            		}
             	}
             }
 
@@ -47,7 +51,7 @@ public class XeNPCListener implements Listener {
         if (mcEntity instanceof XeNPCBase && event.isCancelled() != true) {
             event.setCancelled(true);
             XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
-            if (npc.getPVP()) {
+            if (npc.isPVP()) {
                 npc.damage(event.getDamage());
             }
 
