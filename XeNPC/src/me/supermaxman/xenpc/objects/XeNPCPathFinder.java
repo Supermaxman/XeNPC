@@ -1,15 +1,15 @@
 package me.supermaxman.xenpc.objects;
 
 
-import java.util.Random;
-
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.PathEntity;
 
-public class XeNPCPathFinder implements AutoPathfinder {
+import java.util.Random;
+
+public class XeNPCPathFinder {
 	private final Random random = new Random();
 	
-	@Override
+
 	public PathEntity find(XeNPCBase npc) {
 		if (random.nextInt(70) != 0 || random.nextInt(70) != 0)
 			return null;
