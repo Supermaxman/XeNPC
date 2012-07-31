@@ -4,7 +4,6 @@ import me.supermaxman.xenpc.main.TickTask;
 import me.supermaxman.xenpc.main.XeNPC;
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet18ArmAnimation;
-import net.minecraft.server.PathEntity;
 import net.minecraft.server.WorldServer;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
@@ -30,7 +29,6 @@ public class XeNPCHuman {
     private boolean isFalling = false;
     private boolean isFollowing = false;
     private int attackDelay = 20;
-    private PathEntity path;
     private String owner;
 
     public XeNPCHuman(XeNPCBase entity, int UID, String name, String owner) {
@@ -289,20 +287,31 @@ public class XeNPCHuman {
         }
     }
 
-
-    private void damageItem(ItemStack i, int amt) {
-        i.setDurability((short) (i.getDurability() + amt));
+    /**
+     * Adds damage points to the ItemStack
+     *
+     * @param itemStack
+     * @param amt
+     */
+    private void damageItem(ItemStack itemStack, int amt) {
+        itemStack.setDurability((short) (itemStack.getDurability() + amt));
     }
 
-    private boolean loseItem(Material mat) {
-        ItemStack[] items = this.getInventory().getContents();
-        if (this.getInventory().contains(mat)) {
+    /**
+     * Drops item if material is contained within the NPCs inventory.
+     * Returns true on drop.
+     *
+     * @param material
+     * @return
+     */
+    private boolean loseItem(Material material) {
+        if (this.getInventory().contains(material)) {
 
             for (ItemStack it : this.getInventory().getContents()) {
                 if (it == null) {
-                } else if ((it.getType() == mat) && (it.getAmount() > 1)) {
+                } else if ((it.getType() == material) && (it.getAmount() > 1)) {
                     it.setAmount(it.getAmount() - 1);
-                } else if ((it.getType() == mat) && (it.getAmount() == 1)) {
+                } else if ((it.getType() == material) && (it.getAmount() == 1)) {
                     this.getInventory().removeItem(it);
                 }
             }
