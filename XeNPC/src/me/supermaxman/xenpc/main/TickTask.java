@@ -7,11 +7,18 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-public class TickTask implements Runnable {
+import java.util.Map;
+import java.util.UUID;
 
+public class TickTask implements Runnable {
     @Override
     public void run() {
         Player[] online = Bukkit.getServer().getOnlinePlayers();
+        if (XeNPC.debug) {
+            for (Map.Entry<UUID, XeNPCHuman> entry : Manager.npcs.entrySet()) {
+                XeNPC.log.info(entry.getKey() + " - " + entry.getValue().toString());
+            }
+        }
 
         for (XeNPCHuman npc : Manager.npcs.values()) {
             npc.doTick();

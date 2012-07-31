@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class XeNPCDeleteExecutor extends XeNPCBaseExecutor {
     @Override
@@ -18,9 +19,9 @@ public class XeNPCDeleteExecutor extends XeNPCBaseExecutor {
             WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
             String name = args[0];
             synchronized (Manager.npcs) {
-                HashMap<Integer, XeNPCHuman> npcs = new HashMap<Integer, XeNPCHuman>();
+                HashMap<UUID, XeNPCHuman> npcs = new HashMap<UUID, XeNPCHuman>();
                 npcs.putAll(Manager.npcs);
-                for (Map.Entry<Integer, XeNPCHuman> xeNPCHumanEntry : npcs.entrySet()) {
+                for (Map.Entry<UUID, XeNPCHuman> xeNPCHumanEntry : npcs.entrySet()) {
                     XeNPCHuman npc = xeNPCHumanEntry.getValue();
                     if (npc.getName().equalsIgnoreCase(name)) {
                         ws.removeEntity(npc.getHandle());

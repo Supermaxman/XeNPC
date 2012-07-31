@@ -42,10 +42,11 @@ public class XeNPCHuman {
     public void setFollowing(Boolean bool) {
         this.isFollowing = bool;
     }
-    
+
     public boolean isFollowing() {
         return this.isFollowing;
     }
+
     public void setPVP(Boolean bool) {
         this.pvp = bool;
     }
@@ -53,7 +54,7 @@ public class XeNPCHuman {
     public boolean isPVP() {
         return this.pvp;
     }
-    
+
     public void setHealth(int health) {
         this.health = health;
     }
@@ -163,10 +164,10 @@ public class XeNPCHuman {
                 this.target = null;
             }
         }
-        if(this.isFollowing){
+        if (this.isFollowing) {
             followOwner();
         }
-        if (this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType() != Material.AIR && isFalling == true) {
+        if (this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getType() != Material.AIR && isFalling) {
             this.teleport(this.getLocation().getX(), this.getLocation().getBlock().getRelative(BlockFace.DOWN, 1).getLocation().add(0, 1, 0).getY(), this.getLocation().getZ(), this.getLocation().getYaw(), this.getLocation().getPitch());
             isFalling = false;
         }
@@ -216,13 +217,11 @@ public class XeNPCHuman {
                     if (loseItem(Material.ARROW)) {
                         damageItem(i, 1);
                         this.entity.makeInaccuracies();
-                        ;
                         this.getPlayer().launchProjectile(Arrow.class);
                     }
                 } else {
                     damageItem(i, 1);
                     this.entity.makeInaccuracies();
-                    ;
                     this.getPlayer().launchProjectile(Arrow.class);
                 }
             } else {
@@ -321,4 +320,21 @@ public class XeNPCHuman {
         }
     }
 
+    @Override
+    public String toString() {
+        return "XeNPCHuman{" +
+                "name='" + name + '\'' +
+                ", UID=" + UID +
+                ", entity=" + entity +
+                ", health=" + health +
+                ", target=" + target +
+                ", isGrounded=" + isGrounded +
+                ", hasAttacked=" + hasAttacked +
+                ", pvp=" + pvp +
+                ", isFalling=" + isFalling +
+                ", isFollowing=" + isFollowing +
+                ", attackDelay=" + attackDelay +
+                ", owner='" + owner + '\'' +
+                '}';
+    }
 }
