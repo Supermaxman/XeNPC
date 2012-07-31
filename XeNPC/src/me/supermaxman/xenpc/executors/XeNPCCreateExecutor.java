@@ -2,7 +2,8 @@ package me.supermaxman.xenpc.executors;
 
 import me.supermaxman.xenpc.main.XeNPC;
 import me.supermaxman.xenpc.objects.Manager;
-import me.supermaxman.xenpc.objects.XeNPCBasic;
+import me.supermaxman.xenpc.objects.XeNPCBase;
+import me.supermaxman.xenpc.objects.XeNPCHuman;
 import net.minecraft.server.ItemInWorldManager;
 import net.minecraft.server.WorldServer;
 
@@ -20,17 +21,9 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
             String name = args[0];
             final Location loc = player.getLocation();
             synchronized(Manager.npcs){
-            	/*
-            for(XeNPCBasic npcBasic : XeNPC.npcs){
-            	if(npcBasic.name.equalsIgnoreCase(name)){
-                    WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
-                    ws.removeEntity(npcBasic);
-                    XeNPC.npcs.remove(npcBasic);
-            	}
-            }
-            	 */
-            final XeNPCBasic npcBasic =
-                    new XeNPCBasic(
+            
+            final XeNPCBase npc =
+                    new XeNPCBase(
                             ((CraftServer) plugin.getServer()).getServer(),
                             ((CraftWorld) loc.getWorld()).getHandle(),
                             name,
@@ -41,18 +34,18 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
             WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
 
 
-            npcBasic.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+            npc.setPositionRotation(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
             
             Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
                 @Override
                 public void run() {
-                    npcBasic.X = loc.getYaw();
+                    npc.X = loc.getYaw();
                 }
             });
-
-            ws.addEntity(npcBasic);
-            ws.players.remove(npcBasic);
-            Manager.npcs.put(Manager.npcs.size() + 1,npcBasic);
+            XeNPCHuman npchuman = new XeNPCHuman(npc, Manager.npcs.size()+1, name);
+            ws.addEntity(npchuman.getHandle());
+            ws.players.remove(npchuman.getHandle());
+            Manager.npcs.put(Manager.npcs.size() + 1,npchuman);
             }
         } else if (args.length == 0) {
         	

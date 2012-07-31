@@ -3,13 +3,9 @@ package me.supermaxman.xenpc.main;
 import me.supermaxman.xenpc.executors.XeNPCCreateExecutor;
 import me.supermaxman.xenpc.executors.XeNPCDeleteExecutor;
 import me.supermaxman.xenpc.listeners.XeNPCListener;
-import me.supermaxman.xenpc.objects.XeNPCBasic;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 public class XeNPC extends JavaPlugin {

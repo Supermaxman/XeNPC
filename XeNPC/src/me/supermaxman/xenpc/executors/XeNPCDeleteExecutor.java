@@ -2,7 +2,7 @@ package me.supermaxman.xenpc.executors;
 
 import me.supermaxman.xenpc.main.XeNPC;
 import me.supermaxman.xenpc.objects.Manager;
-import me.supermaxman.xenpc.objects.XeNPCBasic;
+import me.supermaxman.xenpc.objects.XeNPCHuman;
 import net.minecraft.server.WorldServer;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.CraftWorld;
@@ -18,13 +18,13 @@ public class XeNPCDeleteExecutor extends XeNPCBaseExecutor {
             WorldServer ws = ((CraftWorld) player.getWorld()).getHandle();
             String name = args[0];
             synchronized(Manager.npcs){
-            HashMap<Integer,XeNPCBasic> npcs = new HashMap<Integer, XeNPCBasic>();
+            HashMap<Integer,XeNPCHuman> npcs = new HashMap<Integer, XeNPCHuman>();
              npcs.putAll(Manager.npcs);
-                for (Map.Entry<Integer, XeNPCBasic> xeNPCBasicEntry : npcs.entrySet()) {
-                    XeNPCBasic npcBasic = xeNPCBasicEntry.getValue();
-                    if(npcBasic.name.equalsIgnoreCase(name)){
-                        ws.removeEntity(npcBasic);
-                        Manager.npcs.remove(npcBasic);
+                for (Map.Entry<Integer, XeNPCHuman> xeNPCHumanEntry : npcs.entrySet()) {
+                	XeNPCHuman npc = xeNPCHumanEntry.getValue();
+                    if(npc.getName().equalsIgnoreCase(name)){
+                        ws.removeEntity(npc.getHandle());
+                        Manager.npcs.remove(npc);
                         player.sendMessage(ChatColor.RED + "[XeNPC]: NPC "+name+" has been removed.");
                     }
                 }
