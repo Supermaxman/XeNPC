@@ -15,14 +15,18 @@ public class TickTask implements Runnable {
         Player[] online = Bukkit.getServer().getOnlinePlayers();
         
         for (XeNPCHuman npc : Manager.npcs.values()) {
-            //npc.doTick();
+            npc.doTick();
+            if(npc.getTarget()==null){
             for (Player player : online) {
                 if (withinRange(npc.getLocation(), player.getLocation(), 10)) {
                         faceEntity(npc, player);
-                        
+                        break;
                 }
             }
+            }
+    		
         }
+
     }
     
 	public static boolean withinRange(Location loc, Location pLoc, double range) {
