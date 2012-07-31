@@ -18,9 +18,10 @@ public class XeNPCHuman {
 		this.name = ChatColor.stripColor(name);
 	    this.UID = UID;
 	    this.entity = entity;
+	    this.entity.setNPC(this);
 	}
-	    
-
+	
+	
 	public XeNPCBase getHandle() {
 	    return this.entity;
 	}

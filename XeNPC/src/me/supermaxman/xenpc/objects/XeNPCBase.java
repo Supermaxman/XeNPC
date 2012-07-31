@@ -5,8 +5,8 @@ import java.io.IOException;
 import net.minecraft.server.*;
 
 public class XeNPCBase extends EntityPlayer {
-    public XeNPCBase(MinecraftServer minecraftserver, World world, String s,
-                     ItemInWorldManager iteminworldmanager) {
+	private XeNPCHuman human;
+    public XeNPCBase(MinecraftServer minecraftserver, World world, String s, ItemInWorldManager iteminworldmanager) {
         super(minecraftserver, world, s, iteminworldmanager);
         iteminworldmanager.setGameMode(0);
 
@@ -24,5 +24,12 @@ public class XeNPCBase extends EntityPlayer {
             socket.close();
         } catch (IOException ex) {
         }
+    }
+
+    public XeNPCHuman getNPC(){
+    	return human;
+    }
+    public void setNPC(XeNPCHuman human){
+    	this.human = human;
     }
 }
