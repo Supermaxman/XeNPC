@@ -4,7 +4,6 @@ import me.supermaxman.xenpc.main.TickTask;
 import me.supermaxman.xenpc.main.XeNPC;
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet18ArmAnimation;
-import net.minecraft.server.PathEntity;
 import net.minecraft.server.WorldServer;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
@@ -29,7 +28,6 @@ public class XeNPCHuman {
     private boolean pvp = true;
     private boolean isFalling = false;
     private int attackDelay = 20;
-    private PathEntity path;
     private String owner;
 
     public XeNPCHuman(XeNPCBase entity, int UID, String name, String owner) {
