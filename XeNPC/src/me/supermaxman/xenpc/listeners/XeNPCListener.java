@@ -31,21 +31,21 @@ public class XeNPCListener implements Listener {
                 if (p.getItemInHand().getType() == Material.AIR) {
                     p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
                 } else {
-                	if(TickTask.isBoots(p.getItemInHand())){
-                		((CraftPlayer) event.getRightClicked()).getInventory().setBoots(p.getItemInHand());
-                	}else if(TickTask.isHelmet(p.getItemInHand())){
-                		((CraftPlayer) event.getRightClicked()).getInventory().setHelmet(p.getItemInHand());
-                	}else if(TickTask.isChestplate(p.getItemInHand())){
-                		((CraftPlayer) event.getRightClicked()).getInventory().setChestplate(p.getItemInHand());
-                	}else if(TickTask.isLeggings(p.getItemInHand())){
-                		((CraftPlayer) event.getRightClicked()).getInventory().setLeggings(p.getItemInHand());
-                	}else{
-                		if (npc.isFollowing()) {
-                			npc.setFollowing(false);
-                		} else {
-                			npc.setFollowing(true);
-                		}
-                	}
+                    if (TickTask.isBoots(p.getItemInHand())) {
+                        ((CraftPlayer) event.getRightClicked()).getInventory().setBoots(p.getItemInHand());
+                    } else if (TickTask.isHelmet(p.getItemInHand())) {
+                        ((CraftPlayer) event.getRightClicked()).getInventory().setHelmet(p.getItemInHand());
+                    } else if (TickTask.isChestplate(p.getItemInHand())) {
+                        ((CraftPlayer) event.getRightClicked()).getInventory().setChestplate(p.getItemInHand());
+                    } else if (TickTask.isLeggings(p.getItemInHand())) {
+                        ((CraftPlayer) event.getRightClicked()).getInventory().setLeggings(p.getItemInHand());
+                    } else {
+                        if (npc.isFollowing()) {
+                            npc.setFollowing(false);
+                        } else {
+                            npc.setFollowing(true);
+                        }
+                    }
                 }
             }
 
@@ -55,7 +55,7 @@ public class XeNPCListener implements Listener {
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         net.minecraft.server.Entity mcEntity = ((CraftEntity) event.getEntity()).getHandle();
-        if (mcEntity instanceof XeNPCBase && event.isCancelled() != true) {
+        if (mcEntity instanceof XeNPCBase && !event.isCancelled()) {
             event.setCancelled(true);
             XeNPCHuman npc = ((XeNPCBase) mcEntity).getNPC();
             if (npc.isPVP()) {
