@@ -1,9 +1,9 @@
 package me.supermaxman.xenpc.listeners;
 
-import me.supermaxman.xenpc.main.TickTask;
 import me.supermaxman.xenpc.main.XeNPC;
 import me.supermaxman.xenpc.objects.XeNPCBase;
 import me.supermaxman.xenpc.objects.XeNPCHuman;
+import me.supermaxman.xenpc.util.InventoryUtil;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
@@ -31,13 +31,13 @@ public class XeNPCListener implements Listener {
                 if (p.getItemInHand().getType() == Material.AIR) {
                     p.openInventory(((CraftPlayer) event.getRightClicked()).getInventory());
                 } else {
-                    if (TickTask.isBoots(p.getItemInHand())) {
+                    if (InventoryUtil.isBoots(p.getItemInHand())) {
                         ((CraftPlayer) event.getRightClicked()).getInventory().setBoots(p.getItemInHand());
-                    } else if (TickTask.isHelmet(p.getItemInHand())) {
+                    } else if (InventoryUtil.isHelmet(p.getItemInHand())) {
                         ((CraftPlayer) event.getRightClicked()).getInventory().setHelmet(p.getItemInHand());
-                    } else if (TickTask.isChestplate(p.getItemInHand())) {
+                    } else if (InventoryUtil.isChestplate(p.getItemInHand())) {
                         ((CraftPlayer) event.getRightClicked()).getInventory().setChestplate(p.getItemInHand());
-                    } else if (TickTask.isLeggings(p.getItemInHand())) {
+                    } else if (InventoryUtil.isLeggings(p.getItemInHand())) {
                         ((CraftPlayer) event.getRightClicked()).getInventory().setLeggings(p.getItemInHand());
                     } else {
                         if (npc.isFollowing()) {

@@ -1,7 +1,7 @@
 package me.supermaxman.xenpc.objects;
 
-import me.supermaxman.xenpc.main.TickTask;
 import me.supermaxman.xenpc.main.XeNPC;
+import me.supermaxman.xenpc.util.PathUtil;
 import net.minecraft.server.Packet;
 import net.minecraft.server.Packet18ArmAnimation;
 import net.minecraft.server.WorldServer;
@@ -89,13 +89,8 @@ public class XeNPCHuman {
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
+
+
     public String getOwner() {
         return this.owner;
     }
@@ -185,7 +180,7 @@ public class XeNPCHuman {
             for (Entity e : this.getPlayer().getNearbyEntities(15, 10, 15)) {
                 if (e instanceof Monster) {
                     this.target = (LivingEntity) e;
-                    TickTask.faceEntity(this, target);
+                    PathUtil.faceEntity(this, target);
                     if (attackDelay == 20) {
                         attackDelay = 0;
                         this.attackEntity(((CraftEntity) target).getHandle());
@@ -199,7 +194,7 @@ public class XeNPCHuman {
             for (Entity e : this.getPlayer().getNearbyEntities(5, 5, 5)) {
                 if (e instanceof Monster) {
                     this.target = (LivingEntity) e;
-                    TickTask.faceEntity(this, target);
+                    PathUtil.faceEntity(this, target);
                     if (attackDelay == 20) {
                         attackDelay = 0;
                         this.attackEntity(((CraftEntity) target).getHandle());
@@ -218,7 +213,7 @@ public class XeNPCHuman {
         if (this.getItemInHand().getType() != Material.AIR && this.target != null) {
             if (this.getItemInHand().getType() == Material.BOW) {
                 ItemStack i = this.getItemInHand();
-                TickTask.faceEntity(this, target);
+                PathUtil.faceEntity(this, target);
                 if (!i.containsEnchantment(Enchantment.ARROW_INFINITE)) {
                     if (loseItem(Material.ARROW)) {
                         damageItem(i, 1);
