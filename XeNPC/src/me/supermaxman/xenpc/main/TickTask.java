@@ -4,8 +4,10 @@ import me.supermaxman.xenpc.objects.Manager;
 import me.supermaxman.xenpc.objects.XeNPCHuman;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 import java.util.UUID;
@@ -43,7 +45,9 @@ public class TickTask implements Runnable {
     }
 
     public static void faceEntity(XeNPCHuman npc, Entity entity) {
-        if (npc.getWorld() != entity.getWorld()) return;
+
+    	
+    	if (npc.getWorld() != entity.getWorld()) return;
 
         Location loc = npc.getLocation(), pl = entity.getLocation();
         double xDiff = pl.getX() - loc.getX();
@@ -59,5 +63,39 @@ public class TickTask implements Runnable {
         npc.getHandle().yaw = (float) yaw - 90;
         npc.getHandle().X = npc.getHandle().yaw;
         npc.getHandle().pitch = (float) pitch;
+    }
+
+
+    public static boolean isHelmet(ItemStack i){
+    	if(i.getType()==Material.LEATHER_HELMET||i.getType()==Material.IRON_HELMET||i.getType()==Material.DIAMOND_HELMET||i.getType()==Material.GOLD_HELMET||i.getType()==Material.CHAINMAIL_HELMET){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    	
+    }
+    public static boolean isLeggings(ItemStack i){
+    	if(i.getType()==Material.LEATHER_LEGGINGS||i.getType()==Material.IRON_LEGGINGS|i.getType()==Material.DIAMOND_LEGGINGS||i.getType()==Material.GOLD_LEGGINGS||i.getType()==Material.CHAINMAIL_LEGGINGS){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    	
+    }
+    public static boolean isBoots(ItemStack i){
+    	if(i.getType()==Material.LEATHER_BOOTS||i.getType()==Material.IRON_BOOTS|i.getType()==Material.DIAMOND_BOOTS||i.getType()==Material.GOLD_BOOTS||i.getType()==Material.CHAINMAIL_BOOTS){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    	
+    }
+    public static boolean isChestplate(ItemStack i){
+    	if(i.getType()==Material.LEATHER_CHESTPLATE||i.getType()==Material.IRON_CHESTPLATE|i.getType()==Material.DIAMOND_CHESTPLATE||i.getType()==Material.GOLD_CHESTPLATE||i.getType()==Material.CHAINMAIL_CHESTPLATE){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    	
     }
 }

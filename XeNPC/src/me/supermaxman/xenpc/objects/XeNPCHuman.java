@@ -89,7 +89,13 @@ public class XeNPCHuman {
             }
         }
     }
-
+    
+    
+    
+    
+    
+    
+    
     public String getOwner() {
         return this.owner;
     }
