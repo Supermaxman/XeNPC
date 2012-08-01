@@ -253,7 +253,6 @@ public class XeNPCHuman {
         Player p = XeNPC.plugin.getServer().getPlayerExact(this.owner);
         if (p != null) {
             if (!this.getPlayer().getNearbyEntities(2, 2, 2).contains(p)) {
-
                 Location ploc = p.getLocation();
                 Location nloc = this.getLocation();
                 Vector pv = ploc.toVector();
