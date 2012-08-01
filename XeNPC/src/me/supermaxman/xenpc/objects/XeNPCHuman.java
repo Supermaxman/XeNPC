@@ -17,9 +17,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.util.Vector;
 
+import java.util.UUID;
+
 public class XeNPCHuman {
     private final String name;
-    private final int UID;
+    private final java.util.UUID UUID;
     private final XeNPCBase entity;
     private int health;
     private LivingEntity target;
@@ -31,9 +33,9 @@ public class XeNPCHuman {
     private int attackDelay = 20;
     private String owner;
 
-    public XeNPCHuman(XeNPCBase entity, int UID, String name, String owner) {
+    public XeNPCHuman(XeNPCBase entity, String name, String owner) {
         this.name = ChatColor.stripColor(name);
-        this.UID = UID;
+        this.UUID = entity.getBukkitEntity().getUniqueId();
         this.entity = entity;
         this.entity.setNPC(this);
         this.owner = owner;
@@ -73,7 +75,7 @@ public class XeNPCHuman {
         this.dropInventory();
 
         ws.removeEntity(this.entity);
-        Manager.npcs.remove(UID);
+        Manager.npcs.remove(UUID);
     }
 
 
@@ -108,7 +110,7 @@ public class XeNPCHuman {
     }
 
     public Player getPlayer() {
-        return (Player) this.entity.getBukkitEntity();
+        return this.entity.getBukkitEntity();
     }
 
     public World getWorld() {
@@ -138,8 +140,8 @@ public class XeNPCHuman {
         return this.name;
     }
 
-    public int getUID() {
-        return this.UID;
+    public UUID getUUID() {
+        return this.UUID;
     }
 
     public LivingEntity getTarget() {
@@ -155,7 +157,7 @@ public class XeNPCHuman {
             return false;
         }
         XeNPCHuman other = (XeNPCHuman) obj;
-        return UID == other.UID;
+        return UUID == other.UUID;
     }
 
 
@@ -325,7 +327,7 @@ public class XeNPCHuman {
     public String toString() {
         return "XeNPCHuman{" +
                 "name='" + name + '\'' +
-                ", UID=" + UID +
+                ", UUID=" + UUID +
                 ", entity=" + entity +
                 ", health=" + health +
                 ", target=" + target +

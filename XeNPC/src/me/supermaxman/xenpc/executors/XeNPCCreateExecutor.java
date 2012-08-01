@@ -41,7 +41,7 @@ public class XeNPCCreateExecutor extends XeNPCBaseExecutor {
                         npc.X = loc.getYaw();
                     }
                 });
-                XeNPCHuman npchuman = new XeNPCHuman(npc, Manager.npcs.size() + 1, name, player.getName());
+                XeNPCHuman npchuman = new XeNPCHuman(npc, name, player.getName());
                 npchuman.setHealth(20);
                 ws.addEntity(npchuman.getHandle());
                 ws.players.remove(npchuman.getHandle());
